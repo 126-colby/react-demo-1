@@ -422,9 +422,22 @@ declare module "react-router" {
   }
 }
 
+const serverBuildModule = "virtual:react-router/server-build";
+
+// Create a function that will handle the import with error handling
+async function getServerBuild() {
+  try {
+    // Using dynamic import for the server build module
+    // We're marking this as external in the Vite config, so it will be resolved at runtime
+    return import(serverBuildModule);
+  } catch (error) {
+    console.error("Failed to import server build:", error);
+    throw error;
+  }
+}
+
 const requestHandler = createRequestHandler(
-  // @ts-expect-error - virtual module provided by React Router at build time
-  () => import("virtual:react-router/server-build"),
+  getServerBuild,
   import.meta.env.MODE,
 );
 

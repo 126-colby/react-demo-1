@@ -9,6 +9,7 @@ export default defineConfig(({ isSsrBuild }) => ({
     rollupOptions: isSsrBuild
       ? {
           input: "./workers/app.ts",
+          external: ["virtual:react-router/server-build"]
         }
       : undefined,
   },
