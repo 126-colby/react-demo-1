@@ -52,10 +52,10 @@ jobs:
 
       - name: Set Wrangler Secrets
         run: |
-          pnpm exec wrangler secret put HASSIO_URL --name home-assistant-chatbot-march-2025 << EOF
+          pnpm exec wrangler secret put HASSIO_URL --name react-demo-1 << EOF
           ${{ secrets.HASSIO_URL }}
           EOF
-          pnpm exec wrangler secret put HASSIO_TOKEN --name home-assistant-chatbot-march-2025 << EOF
+          pnpm exec wrangler secret put HASSIO_TOKEN --name react-demo-1 << EOF
           ${{ secrets.HASSIO_TOKEN }}
           EOF
         env:

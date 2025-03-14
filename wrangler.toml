@@ -1,4 +1,4 @@
-name = "home-assistant-chatbot-march-2025"
+name = "react-demo-1"
 main = "workers/app.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]
