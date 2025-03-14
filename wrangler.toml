@@ -1,0 +1,31 @@
+name = "home-assistant-chatbot-march-2025"
+main = "workers/app.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+upload_source_maps = true
+
+[vars]
+HASSIO_URL = "https://rpcsurqki2awrf1lukibtypjv2ochwqb.ui.nabu.casa"
+VALUE_FROM_CLOUDFLARE = "Hello from Cloudflare"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "hassio-agent"
+database_id = "6fd26ae9-6e97-4293-983d-a4a3074f1aad"
+
+[ai]
+binding = "AI"
+
+[[r2_buckets]]
+binding = "CHATBOT_ASSETS"
+bucket_name = "chatbot-assets"
+preview_bucket_name = "chatbot-assets-preview"
+
+[site]
+bucket = "./public"
+
+# [durable_objects]
+# bindings = []
+
+[observability]
+enabled = true

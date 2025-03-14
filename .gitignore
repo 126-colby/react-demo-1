@@ -2,6 +2,10 @@
 /node_modules/
 *.tsbuildinfo
 
+# Ignore dot directories/files by default
+.*
+!/.github/
+
 # React Router
 /.react-router/
 /build/
@@ -9,3 +13,5 @@
 # Cloudflare
 .mf
 .wrangler
+
+wrangler_toml_backup.txt

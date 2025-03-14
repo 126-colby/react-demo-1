@@ -12,6 +12,19 @@ export default defineConfig(({ isSsrBuild }) => ({
         }
       : undefined,
   },
+  server: {
+    allowedHosts: [
+      '.gitpod.io', // Allow all hosts from gitpod.io
+    ],
+    // Add proxy configuration to forward API requests to the Cloudflare Worker
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8787', // Cloudflare Worker's default port
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
   plugins: [
     cloudflareDevProxy({
       getLoadContext({ context }) {
