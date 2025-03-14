@@ -27,22 +27,22 @@ jobs:
       - name: Build project
         run: npm run build
         
-      - name: Install Wrangler
-        run: npm install -g wrangler@latest
+      # - name: Install Wrangler
+      #   run: npm install -g wrangler@latest
 
-      - name: Set Wrangler Secrets
-        run: |
-          npx wrangler secret put HASSIO_URL --name react-demo-1 << EOF
-          ${{ secrets.HASSIO_URL }}
-          EOF
-          npx wrangler secret put HASSIO_TOKEN --name react-demo-1 << EOF
-          ${{ secrets.HASSIO_TOKEN }}
-          EOF
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      # - name: Set Wrangler Secrets
+      #   run: |
+      #     wrangler secret put HASSIO_URL --name react-demo-1 << EOF
+      #     ${{ secrets.HASSIO_URL }}
+      #     EOF
+      #     npx wrangler secret put HASSIO_TOKEN --name react-demo-1 << EOF
+      #     ${{ secrets.HASSIO_TOKEN }}
+      #     EOF
+      #   env:
+      #     CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
       - name: Publish Worker to Cloudflare
-        run: npx wrangler deploy
+        run: wrangler deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           
