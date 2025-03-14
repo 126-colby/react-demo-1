@@ -19,50 +19,30 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20' # recommended LTS version
-          cache: 'pnpm' # Enable Node modules caching
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: latest
-          run_install: false
-
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
-
-      - name: Setup pnpm cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+          cache: 'npm' # Enable Node modules caching
 
       - name: Install dependencies
-        run: pnpm install
+        run: npm ci
 
-      - name: Type check and build project
-        run: pnpm run typecheck && pnpm run build
+      - name: Build project
+        run: npm run build
         
       - name: Install Wrangler
-        run: pnpm add -g wrangler@latest
+        run: npm install -g wrangler@latest
 
       - name: Set Wrangler Secrets
         run: |
-          pnpm exec wrangler secret put HASSIO_URL --name react-demo-1 << EOF
+          npx wrangler secret put HASSIO_URL --name react-demo-1 << EOF
           ${{ secrets.HASSIO_URL }}
           EOF
-          pnpm exec wrangler secret put HASSIO_TOKEN --name react-demo-1 << EOF
+          npx wrangler secret put HASSIO_TOKEN --name react-demo-1 << EOF
           ${{ secrets.HASSIO_TOKEN }}
           EOF
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
       - name: Publish Worker to Cloudflare
-        run: pnpm exec wrangler deploy
+        run: npx wrangler deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           
