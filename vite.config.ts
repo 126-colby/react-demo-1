@@ -9,7 +9,7 @@ export default defineConfig(({ isSsrBuild }) => ({
     rollupOptions: isSsrBuild
       ? {
           input: "./workers/app.ts",
-          external: ["virtual:react-router/server-build"]
+          // We need to include the virtual module in the build for Cloudflare Workers
         }
       : undefined,
   },

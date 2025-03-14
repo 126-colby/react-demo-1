@@ -422,17 +422,19 @@ declare module "react-router" {
   }
 }
 
+// For Cloudflare Workers environment
 const serverBuildModule = "virtual:react-router/server-build";
 
-// Create a function that will handle the import with error handling
 async function getServerBuild() {
   try {
-    // Using dynamic import for the server build module
-    // We're marking this as external in the Vite config, so it will be resolved at runtime
-    return import(serverBuildModule);
+    // In Cloudflare Workers, the module resolver works differently
+    // We use the virtual module directly which will be included in the bundle
+    // but need to handle potential runtime errors
+    return await import(/* @vite-ignore */ serverBuildModule);
   } catch (error) {
-    console.error("Failed to import server build:", error);
-    throw error;
+    console.error(`Failed to import server build from "${serverBuildModule}":`, error);
+    // Provide more context about the error for debugging
+    throw new Error(`React Router server build module could not be loaded: ${error instanceof Error ? error.message : String(error)}`);
   }
 }
 
