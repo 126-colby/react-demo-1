@@ -436,9 +436,12 @@ async function getServerBuild() {
   }
 }
 
+// Define a default mode for Cloudflare Workers environment where import.meta.env might not be available
+const mode = typeof import.meta.env !== 'undefined' ? import.meta.env.MODE : 'production';
+
 const requestHandler = createRequestHandler(
   getServerBuild,
-  import.meta.env.MODE,
+  mode,
 );
 
 // Prompt Management System
